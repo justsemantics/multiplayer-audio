@@ -5,10 +5,13 @@ var playlist = [];
 var playlistElements = [];
 
 function createVideoInfo(id) {
+    var info = new videoInfo();
+    playlist.push(info);
+
     var infoElement = $("#videoInfoPrefab").clone();
     $(infoElement).appendTo("#playlist");
 
-    youtubeDataAPIQuery(id, infoElement);
+    youtubeDataAPIQuery(id, info, infoElement);
 }
 
 function updatePlaylist() {
@@ -29,6 +32,7 @@ function videoInfo() {
     this.thumbnail = "";
     this.title = "";
     this.views = "";
+    this.element = null;
 
     this.log = function () {
         console.log("VIDEO INFO LOGGED" +
@@ -37,13 +41,15 @@ function videoInfo() {
             "\nTITLE: " + this.title +
             "\nVIEWS: " + this.views);
     }
+
+    this.fillElement = function () {
+        this.element.find(".videoThumbnail").attr("src", this.thumbnail);
+        this.element.find(".videoTitle").html(this.title);
+        this.element.find(".videoViews").html(this.views + " views");
+    }
 }
 
-function fillElementWithYoutubeInfo(element, info) {
-    element.find(".videoTitle").html(info.title);
-}
-
-function youtubeDataAPIQuery(id, element) {
+function youtubeDataAPIQuery(id, info, element) {
 
     var query = 'https://www.googleapis.com/youtube/v3/videos?id=' + id + '&key=' + videoDataApiKey + '&part=snippet,statistics&fields=items(id,snippet,statistics)';
 
@@ -57,19 +63,16 @@ function youtubeDataAPIQuery(id, element) {
         timeout: 5000
     })
     .done(function (result, status, req) {
-        var info = result.items[0];
-        console.log(info);
-        var video = new videoInfo();
+        var data = result.items[0];
+        //console.log(data);
 
-        video.ID = info.id;
-        video.thumbnail = info.snippet.thumbnails.default.url;
-        video.title = info.snippet.title;
-        video.views = info.statistics.viewCount;
-        video.log();
-
-        fillElementWithYoutubeInfo(element, video);
-
-
+        info.ID = data.id;
+        info.thumbnail = data.snippet.thumbnails.default.url;
+        info.title = data.snippet.title;
+        info.views = data.statistics.viewCount;
+        //info.log();
+        info.element = element;
+        info.fillElement();
     })
     .fail(function (x, t, m) {
         if (t === 'timeout') {
@@ -101,4 +104,9 @@ $(document).ready(function () {
     //youtubeDataAPIQuery('iACJwuZm2Zg');
 
     createVideoInfo('iACJwuZm2Zg');
+    createVideoInfo('OQcJEHKHRc0');
+
+    setTimeout(function () {
+        console.log(playlist);
+    }, 2000);
 });

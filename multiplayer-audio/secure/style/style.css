@@ -1,0 +1,25 @@
+﻿body
+{
+}
+
+.hidden{
+    display: none;
+}
+
+#playlist{
+    width: 50%;
+}
+
+.videoInfo{
+    margin-bottom: 10px;
+    background-color: lightslategray;
+}
+
+.videoThumbnail{
+
+}
+
+.videoTitle{
+
+}
+
