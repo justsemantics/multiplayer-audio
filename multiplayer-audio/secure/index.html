@@ -4,11 +4,24 @@
 <head>
     <meta charset="utf-8" />
     <title></title>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="scripts/queuerScript.js"></script>
+    <link rel="stylesheet" href="style/style.css" />
 </head>
 <body>
     <form method="post" id="videoForm">
         <input type="text" name="videoID" />
         <input type="submit" formaction="/video" value="PLAY"/>
     </form>
+
+    <div id="playlist">
+
+    </div>
+
+    <div class="hidden">
+        <div id="videoInfoPrefab" class="videoInfo">
+            <img src="" class="videoThumbnail"/><h2 class="videoTitle"></h2><p class="videoLength"></p><p class="videoViews"></p>
+        </div>
+    </div>
 </body>
 </html>

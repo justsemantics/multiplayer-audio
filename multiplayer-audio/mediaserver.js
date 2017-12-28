@@ -10,6 +10,10 @@ var userSession = function (){
 
 var sessions = [];
 
+var playlist = [];
+
+var currentSongIndex = 0;
+
 //node modules
 var express = require('express');
 var http = require('http');
@@ -108,6 +112,16 @@ app.get('/newVideo', function (req, res) {
     nextVideo = null;
 });
 
+app.get('/playlist', function (req, res) {
+    var currentPlaylist = "";
+    var json = JSON.stringify(
+        {
+            currentPlaylist: playlist
+        });
+
+    res.json(json);
+});
+
 
 
 ///////////////////////////////
@@ -161,7 +175,7 @@ app.post('/video', function (req, res) {
     req.on('end', function () {
         let post = qs.parse(body);
         if (post.videoID != null) {
-            console.log(post.videoID);
+            console.log("adding " + post.videoID);
             addVideo(post.videoID);
         }
 
@@ -170,7 +184,7 @@ app.post('/video', function (req, res) {
 }); 
 
 function addVideo(id){
-    nextVideo = id;
+    playlist.push(id);
 }
 
 
