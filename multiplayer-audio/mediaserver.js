@@ -12,7 +12,7 @@ var sessions = [];
 
 var playlist = [];
 
-var currentSongIndex = 0;
+var currentVideoIndex = 0;
 
 //node modules
 var express = require('express');
@@ -122,7 +122,15 @@ app.get('/playlist', function (req, res) {
     res.json(json);
 });
 
+app.get('/currentVideoIndex', function (req, res) {
+    var index = "";
+    var json = JSON.stringify(
+        {
+            index: currentVideoIndex
+        });
 
+    res.json(json);
+});
 
 ///////////////////////////////
 //// APP.POST
@@ -186,6 +194,26 @@ app.post('/video', function (req, res) {
 function addVideo(id){
     playlist.push(id);
 }
+
+app.post('/setCurrentVideoIndex', function (req, res) {
+    let body = '';
+
+    req.on('data', function (data) {
+        body += data;
+
+        // Too much POST data, kill the connection!
+        if (body.length > 1e6)
+            req.connection.destroy();
+    });
+
+    req.on('end', function () {
+        let post = qs.parse(body);
+        
+        console.log(post.index);
+        currentVideoIndex = post.index;
+        res.sendStatus(204);
+    });
+});
 
 
 

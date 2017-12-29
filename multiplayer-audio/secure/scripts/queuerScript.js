@@ -4,6 +4,8 @@ var playlist = [];
 
 var playlistElements = [];
 
+var currentVideoIndex = -1;
+
 function createVideoInfo(id) {
     var info = new videoInfo();
     playlist.push(info);
@@ -17,12 +19,10 @@ function createVideoInfo(id) {
 function updatePlaylist() {
     getJSON('/playlist',
     function (err, data) {
-        console.log(data);
         if (err !== null) {
             alert('Something went wrong: ' + err);
         } else {
             var newPlaylist = JSON.parse(data).currentPlaylist;
-            console.log(newPlaylist);
             for (var i = 0; i < newPlaylist.length; i++) {
                 if (i < playlist.length) {
 
@@ -90,6 +90,13 @@ function youtubeDataAPIQuery(id, info, element) {
             alert("failure :(");
         }
     });
+}
+
+function highlightCurrentVideo() {
+    $(".videoInfo").removeClass("currentVideo");
+    if (playlist.length > currentVideoIndex) {
+        playlist[currentVideoIndex].element.addClass("currentVideo");
+    }
 }
 
 //https://stackoverflow.com/questions/12460378/how-to-get-json-from-url-in-javascript

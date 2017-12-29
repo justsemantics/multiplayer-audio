@@ -6,7 +6,7 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var currentVideoIndex = -1;
+
 
 
 // 3. This function creates an <iframe> (and YouTube player)
@@ -81,7 +81,25 @@ function playNextVideo() {
         var nextVideo = playlist[currentVideoIndex];
 
         playVideo(nextVideo.ID);
+        highlightCurrentVideo();
+        postCurrentVideoIndex();
     }
+}
+
+function postCurrentVideoIndex() {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '/setCurrentVideoIndex', true);
+    var params = 'index=' + currentVideoIndex;
+
+    //Send the proper header information along with the request
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function () {//Call a function when the state changes.
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log("got post response");
+        }
+    }
+    xhr.send(params);
 }
 
 
