@@ -21,8 +21,16 @@ function updatePlaylist() {
         if (err !== null) {
             alert('Something went wrong: ' + err);
         } else {
-            var parsedData = JSON.parse(data);
-            
+            var newPlaylist = JSON.parse(data).currentPlaylist;
+            console.log(newPlaylist);
+            for (var i = 0; i < newPlaylist.length; i++) {
+                if (i < playlist.length) {
+
+                }
+                else {
+                    createVideoInfo(newPlaylist[i]);
+                }
+            }
         }
     });
 }
@@ -109,4 +117,7 @@ $(document).ready(function () {
     setTimeout(function () {
         console.log(playlist);
     }, 2000);
+    setInterval(function () {
+        updatePlaylist();
+    }, 3000);
 });

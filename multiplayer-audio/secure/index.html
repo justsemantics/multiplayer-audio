@@ -3,9 +3,11 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width", initial-scale="1.0">
     <title></title>
     <script src="jquery-3.2.1.min.js"></script>
     <script src="scripts/queuerScript.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
     <link rel="stylesheet" href="style/style.css" />
 </head>
 <body>
@@ -20,7 +22,16 @@
 
     <div class="hidden">
         <div id="videoInfoPrefab" class="videoInfo">
-            <img src="" class="videoThumbnail"/><h2 class="videoTitle"></h2><p class="videoLength"></p><p class="videoViews"></p>
+            <div class="videoInfoFlexContainer">
+                <div class="thumbContainer">
+                    <img src="" class="videoThumbnail" />
+                </div>
+                <div class="textContainer">
+                    <h2 class="videoTitle"></h2>
+                    <p class="videoLength"></p>
+                    <p class="videoViews"></p>
+                </div>
+            </div>       
         </div>
     </div>
 </body>

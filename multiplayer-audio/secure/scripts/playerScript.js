@@ -6,7 +6,6 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var playlist = [];
 var currentVideo = "";
 
 
@@ -103,4 +102,4 @@ var getJSON = function (url, callback) {
     xhr.send();
 };
 
-setInterval(checkForUpdates, 3000);
+//setInterval(checkForUpdates, 3000);
