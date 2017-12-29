@@ -10,6 +10,10 @@ var userSession = function (){
 
 var sessions = [];
 
+var playlist = [];
+
+var currentVideoIndex = 0;
+
 //node modules
 var express = require('express');
 var http = require('http');
@@ -108,7 +112,25 @@ app.get('/newVideo', function (req, res) {
     nextVideo = null;
 });
 
+app.get('/playlist', function (req, res) {
+    var currentPlaylist = "";
+    var json = JSON.stringify(
+        {
+            currentPlaylist: playlist
+        });
 
+    res.json(json);
+});
+
+app.get('/currentVideoIndex', function (req, res) {
+    var index = "";
+    var json = JSON.stringify(
+        {
+            index: currentVideoIndex
+        });
+
+    res.json(json);
+});
 
 ///////////////////////////////
 //// APP.POST
@@ -161,7 +183,7 @@ app.post('/video', function (req, res) {
     req.on('end', function () {
         let post = qs.parse(body);
         if (post.videoID != null) {
-            console.log(post.videoID);
+            console.log("adding " + post.videoID);
             addVideo(post.videoID);
         }
 
@@ -170,8 +192,28 @@ app.post('/video', function (req, res) {
 }); 
 
 function addVideo(id){
-    nextVideo = id;
+    playlist.push(id);
 }
+
+app.post('/setCurrentVideoIndex', function (req, res) {
+    let body = '';
+
+    req.on('data', function (data) {
+        body += data;
+
+        // Too much POST data, kill the connection!
+        if (body.length > 1e6)
+            req.connection.destroy();
+    });
+
+    req.on('end', function () {
+        let post = qs.parse(body);
+        
+        console.log(post.index);
+        currentVideoIndex = post.index;
+        res.sendStatus(204);
+    });
+});
 
 
 
