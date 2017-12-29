@@ -109,10 +109,7 @@ var getJSON = function (url, callback) {
 };
 
 $(document).ready(function () {
-    //youtubeDataAPIQuery('iACJwuZm2Zg');
 
-    createVideoInfo('iACJwuZm2Zg');
-    createVideoInfo('OQcJEHKHRc0');
 
     setTimeout(function () {
         console.log(playlist);

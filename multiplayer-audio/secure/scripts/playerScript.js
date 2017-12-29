@@ -6,7 +6,7 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var currentVideo = "";
+var currentVideoIndex = -1;
 
 
 // 3. This function creates an <iframe> (and YouTube player)
@@ -16,7 +16,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '390',
         width: '640',
-        videoId: 'M7lc1UVf-VE',
+        videoId: 'Fu50gUDaZxM',
         events: {
             'onReady': onPlayerReady,
             'onStateChange': onPlayerStateChange
@@ -76,11 +76,11 @@ function updatePlaylistElement() {
 }
 
 function playNextVideo() {
-    if (playlist.length != 0) {
-        var nextVideo = playlist[0];
-        playlist.splice(0, 1);
+    currentVideoIndex++;
+    if (playlist.length > currentVideoIndex) {
+        var nextVideo = playlist[currentVideoIndex];
 
-        playVideo(nextVideo);
+        playVideo(nextVideo.ID);
     }
 }
 
