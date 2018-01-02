@@ -182,6 +182,7 @@ app.post('/video', function (req, res) {
 
     req.on('end', function () {
         let post = qs.parse(body);
+        console.log(post);
         if (post.videoID != null) {
             console.log("adding " + post.videoID);
             addVideo(post.videoID);

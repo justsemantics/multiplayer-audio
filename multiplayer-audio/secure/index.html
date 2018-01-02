@@ -12,10 +12,13 @@
     <link rel="stylesheet" href="style/style.css" />
 </head>
 <body>
-    <form method="post" id="videoForm">
+    <!--<form method="post" id="videoForm">
         <input type="text" name="videoID" />
         <input type="submit" formaction="/video" value="PLAY"/>
-    </form>
+    </form>-->
+
+    <input type="text" id="videoURL" />
+    <button onclick="addCurrentVideo()">ADD BY URL</button>
 
     <div id="playlist">
 

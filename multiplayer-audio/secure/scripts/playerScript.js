@@ -103,7 +103,6 @@ function postCurrentVideoIndex() {
 }
 
 
-
 //https://stackoverflow.com/questions/12460378/how-to-get-json-from-url-in-javascript
 var getJSON = function (url, callback) {
     var xhr = new XMLHttpRequest();
