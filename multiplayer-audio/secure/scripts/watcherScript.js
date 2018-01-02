@@ -31,7 +31,8 @@ function getYoutubeVideoIDFromURL(url) {
 }
 
 function checkYoutubeVideoID() {
-
+    //add actual logic
+    return true;
 }
 
 function addCurrentVideo() {
