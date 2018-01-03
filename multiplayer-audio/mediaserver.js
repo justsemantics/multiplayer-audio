@@ -38,32 +38,32 @@ var app = express();
 //// APP.USE
 ///////////////////////////////
 
-//app.use('/secure',
-//	function(req, res, next){
-//		var cookies = cookie.parse(req.headers.cookie || '');
+app.use('/secure',
+	function(req, res, next){
+		var cookies = cookie.parse(req.headers.cookie || '');
 
-//		let session = cookies.sessionID;
-//		let sessionIndex = findSessionIndex(session);
-//		if (sessionIndex >= 0){
-//			if(sessions[sessionIndex].authorized){
-//				next('route');
-//			}
-//			else{
-//				console.log('[' + req.ip +'] unauthorized session');
+		let session = cookies.sessionID;
+		let sessionIndex = findSessionIndex(session);
+		if (sessionIndex >= 0){
+			//if(sessions[sessionIndex].authorized){
+				next('route');
+			//}
+			//else{
+			//	console.log('[' + req.ip +'] unauthorized session');
 
-//				res.redirect('/');
-//			}
-//		}
-//		else{
-//			console.log('[' + req.ip +'] no session');
-//			res.redirect('/');
-//		}
-//	}
-//);
+			//	res.redirect('/');
+			//}
+		}
+		else{
+			console.log('[' + req.ip +'] no session');
+			res.redirect('/');
+		}
+	}
+);
 
-//app.use('/secure', express.static('secure'));
+app.use('/secure', express.static('secure'));
 
-app.use(express.static('secure'));
+app.use(express.static('public'));
 
 
 

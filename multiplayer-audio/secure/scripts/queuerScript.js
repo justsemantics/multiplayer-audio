@@ -10,7 +10,7 @@ function createVideoInfo(id) {
     var info = new videoInfo();
     playlist.push(info);
 
-    var infoElement = $("#videoInfoPrefab").clone();
+    var infoElement = $("#videoInfoPrefab").clone().removeAttr('id');
     $(infoElement).appendTo("#playlist");
 
     youtubeDataAPIQuery(id, info, infoElement);
