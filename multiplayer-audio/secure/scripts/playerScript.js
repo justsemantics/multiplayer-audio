@@ -76,8 +76,8 @@ function updatePlaylistElement() {
 }
 
 function playNextVideo() {
-    currentVideoIndex++;
-    if (playlist.length > currentVideoIndex) {
+    if (playlist.length > currentVideoIndex + 1) {
+        currentVideoIndex++;
         var nextVideo = playlist[currentVideoIndex];
 
         playVideo(nextVideo.ID);
@@ -102,6 +102,13 @@ function postCurrentVideoIndex() {
     xhr.send(params);
 }
 
+//make this better...
+function checkIfShouldPlayNextVideo() {
+    if (player.getPlayerState() == 0) {
+        playNextVideo();
+    }
+}
+
 
 //https://stackoverflow.com/questions/12460378/how-to-get-json-from-url-in-javascript
 var getJSON = function (url, callback) {
@@ -119,4 +126,4 @@ var getJSON = function (url, callback) {
     xhr.send();
 };
 
-//setInterval(checkForUpdates, 3000);
+setInterval(checkIfShouldPlayNextVideo(), 3000);
